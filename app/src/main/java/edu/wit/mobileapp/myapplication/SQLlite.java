@@ -24,6 +24,8 @@ public class SQLlite extends SQLiteOpenHelper {
                         "(courseName text primary key, classType text)"
         );
         db.execSQL("create table assignments" +" (id integer primary key, assignmentName text, dueDate date, courseName text)");
+        db.execSQL("create table year" +" (id integer primary key, yearSplit integer, schoolName text,yearOfSchool integer)");
+
     }
     public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
         database.execSQL("DROP TABLE IF EXISTS courses");
@@ -47,9 +49,23 @@ public class SQLlite extends SQLiteOpenHelper {
         db.insert("assignment", null, contentValues);
         return true;
     }
+    public boolean insertYear(Integer yearSplit, String schoolName, Integer yearOfSchool) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("yearSplit", yearSplit);
+        contentValues.put("schoolName", schoolName);
+        contentValues.put("yearOfSchool", yearOfSchool);
+        db.insert("year", null, contentValues);
+        return true;
+    }
     public Cursor getCourses(String courseName) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res =  db.rawQuery( "select * from courses where courseName="+courseName+"", null );
+        return res;
+    }
+    public Cursor getYear() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select * from year", null );
         return res;
     }
     public Integer deleteCourse (String courseName) {
