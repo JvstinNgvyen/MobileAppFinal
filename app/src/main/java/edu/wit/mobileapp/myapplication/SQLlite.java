@@ -13,6 +13,7 @@ import static android.content.Context.MODE_PRIVATE;
 import static android.database.sqlite.SQLiteDatabase.openOrCreateDatabase;
 
 public class SQLlite extends SQLiteOpenHelper {
+
     private static final String DATABASE_NAME = "database";
 
     public SQLlite(Context context){
@@ -20,11 +21,11 @@ public class SQLlite extends SQLiteOpenHelper {
     }
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(
-                "create table courses " +
+                "create table if not exists courses " +
                         "(courseName text primary key, classType text)"
         );
-        db.execSQL("create table assignments" +" (id integer primary key, assignmentName text, dueDate date, courseName text)");
-        db.execSQL("create table year" +" (id integer primary key, yearSplit integer, schoolName text,yearOfSchool integer)");
+        db.execSQL("create table if not exists assignments" +" (id integer primary key, assignmentName text, dueDate date, courseName text)");
+        db.execSQL("create table if not exists year" +" (id integer primary key, yearSplit integer, schoolName text,yearOfSchool integer)");
 
     }
     public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
@@ -49,7 +50,7 @@ public class SQLlite extends SQLiteOpenHelper {
         db.insert("assignment", null, contentValues);
         return true;
     }
-    public boolean insertYear(Integer yearSplit, String schoolName, Integer yearOfSchool) {
+    public boolean insertYear(Integer yearSplit, String schoolName, String yearOfSchool) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("yearSplit", yearSplit);
