@@ -1,3 +1,30 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Due Dates</string>
+
+    <string name="schoolName">School Name</string>
+    <string name="year">Year</string>
+
+    <string name="semester">Semester</string>
+    <string name="trimester">Trimester</string>
+    <string name="quarter">Quarter</string>
+
+    <string name="next">Next</string>
+
+    <string name="term_type">Term Type</string>
+    <string name="class_type">Class Type</string>
+
+    <string name="select_priority">Select Priority</string>
+    <string name="select_class">Select Class</string>
+    <string name="select_assignment">Select Assignment</string>
+
+    <string name="quiz">Quiz</string>
+    <string name="reading">Reading</string>
+    <string name="project">Project</string>
+
+    <string name="low">Low</string>
+    <string name="medium">Medium</string>
+    <string name="high">High</string>
+
+    <string name="add_btn">ADD</string>
+
 </resources>

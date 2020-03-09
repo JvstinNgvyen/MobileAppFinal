@@ -95,4 +95,3 @@ public class SQLlite extends SQLiteOpenHelper {
         return array_list;
     }
 }
-
