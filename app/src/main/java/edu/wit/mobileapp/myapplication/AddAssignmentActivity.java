@@ -17,14 +17,17 @@ import java.util.ArrayList;
 
 public class AddAssignmentActivity extends AppCompatActivity {
     private ChipGroup chipGroup;
+    private ArrayList<String> chipList;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_assignment_layout);
 
+        // Linked views to their ID
         chipGroup = findViewById(R.id.class_type_group);
 
-        ArrayList<String> chipList = getIntent().getExtras().getStringArrayList("classList");
+        // Retrieves bundled ArrayList of classes as strings then sets it to a chip choice
+        chipList = getIntent().getExtras().getStringArrayList("classList");
         for(int i = 0; i < chipList.size(); i++){
             final Chip chip = new Chip(this);
             ChipDrawable drawable = ChipDrawable.createFromAttributes(this,null,0,R.style.Widget_MaterialComponents_Chip_Choice);
