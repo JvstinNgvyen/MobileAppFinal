@@ -27,12 +27,14 @@ public class AddInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.information_entry_layout);
 
+        // Linked Views to their ID
         editText = findViewById(R.id.edit_text_add_chip);
         button = findViewById(R.id.btn_add_chip_class);
         chipGroup = findViewById(R.id.class_group);
-
         Button next_btn = (Button)findViewById(R.id.buttonNext);
 
+        // OnClickListener in next_btn to Bundle and Intent to AddAssignmentActivity
+        // This bundles the chip texts inputted from the user
         next_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,7 +61,7 @@ public class AddInfoActivity extends AppCompatActivity {
 
     public void btnClickAddClass(View view){
         final Chip chip = new Chip(this);
-
+        // Sets chip properties and add it the the chipGroup of classes
         ChipDrawable drawable = ChipDrawable.createFromAttributes(this,null,0,R.style.Widget_MaterialComponents_Chip_Entry);
         chip.setChipDrawable(drawable);
         chip.setCheckable(false);
