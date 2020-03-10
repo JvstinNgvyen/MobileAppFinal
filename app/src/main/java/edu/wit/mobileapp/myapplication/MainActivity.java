@@ -34,6 +34,7 @@ Button trimesterlyButton;
         final SQLlite dbHelper = new SQLlite(context);
         dbHelper.onCreate(db);
 
+        //locate UI elements on screen
         yearText = findViewById(R.id.editText1);
 
         schoolText = findViewById(R.id.editText2);
