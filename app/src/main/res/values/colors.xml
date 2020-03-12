@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#3D3F41</color>
+    <color name="colorPrimaryDark">#2B2B2B</color>
+    <color name="colorAccent">#5090BF</color>
+    <color name="low">#BF62C755</color>
+    <color name="medium">#BFF5BF4F</color>
+    <color name="high">#BFED6A5F</color>
+    <color name="defaultChip">#EBEBEB</color>
+    <color name="checkedChip">#BF7075AD</color>
 </resources>
