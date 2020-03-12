@@ -96,8 +96,9 @@
             android:id="@+id/type_group"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            app:chipSpacingHorizontal="45dp"
-            app:singleSelection="true">
+            app:chipSpacingHorizontal="30dp"
+            app:singleSelection="true"
+            >
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_semester"
@@ -106,7 +107,9 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:text="@string/semester" />
+                android:text="@string/semester"
+                app:checkedIconVisible="true"
+                app:chipBackgroundColor="@color/default_chip_color" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_trimester"
@@ -115,7 +118,9 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:text="@string/trimester" />
+                android:text="@string/trimester"
+                app:checkedIconVisible="true"
+                app:chipBackgroundColor="@color/default_chip_color"/>
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_quarter"
@@ -124,7 +129,9 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:text="@string/quarter" />
+                android:text="@string/quarter"
+                app:checkedIconVisible="true"
+                app:chipBackgroundColor="@color/default_chip_color"/>
 
         </com.google.android.material.chip.ChipGroup>
     </LinearLayout>

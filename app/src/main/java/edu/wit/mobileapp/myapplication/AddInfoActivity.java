@@ -1,11 +1,9 @@
 package edu.wit.mobileapp.myapplication;
 
-import androidx.annotation.IdRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,8 +15,9 @@ import com.google.android.material.chip.ChipGroup;
 
 import java.util.ArrayList;
 
-public class AddInfoActivity extends AppCompatActivity {
+public class AddInfoActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText editText;
+    private Button next_btn;
     private Button button;
     private ChipGroup chipGroup;
 
@@ -31,32 +30,9 @@ public class AddInfoActivity extends AppCompatActivity {
         editText = findViewById(R.id.edit_text_add_chip);
         button = findViewById(R.id.btn_add_chip_class);
         chipGroup = findViewById(R.id.class_group);
-        Button next_btn = (Button)findViewById(R.id.buttonNext);
+        next_btn = findViewById(R.id.buttonNext);
 
-        // OnClickListener in next_btn to Bundle and Intent to AddAssignmentActivity
-        // This bundles the chip texts inputted from the user
-        next_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(AddInfoActivity.this, AddAssignmentActivity.class);
-
-                ChipGroup chipGroupClass = findViewById(R.id.class_group);
-
-                ArrayList<String > chipClassList = new ArrayList<String>();
-
-                for(int i = 0; i < chipGroupClass.getChildCount();i++){
-                    Chip chip = (Chip)chipGroup.getChildAt(i);
-                        Log.v("myApp",i + " "+ chip.getText().toString());
-                        chipClassList.add(chip.getText().toString());
-                }
-                Bundle bundle = new Bundle();
-                bundle.putStringArrayList("classList", chipClassList);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-
-        });
+        next_btn.setOnClickListener(this);
     }
 
     public void btnClickAddClass(View view){
@@ -75,8 +51,31 @@ public class AddInfoActivity extends AppCompatActivity {
                 chipGroup.removeView(chip);
             }
         });
-
         chipGroup.addView(chip);
         editText.setText("");
+    }
+
+    @Override
+    public void onClick(View v) {
+        // OnClickListener in next_btn to Bundle and Intent to AddAssignmentActivity
+        // This bundles the chip texts inputted from the user
+        if(v == next_btn) {
+            Intent intent = new Intent();
+            intent.setClass(AddInfoActivity.this, AddAssignmentActivity.class);
+
+            ChipGroup chipGroupClass = findViewById(R.id.class_group);
+
+            ArrayList<String> chipClassList = new ArrayList<String>();
+
+            for (int i = 0; i < chipGroupClass.getChildCount(); i++) {
+                Chip chip = (Chip) chipGroup.getChildAt(i);
+                Log.v("myApp", i + " " + chip.getText().toString());
+                chipClassList.add(chip.getText().toString());
+            }
+            Bundle bundle = new Bundle();
+            bundle.putStringArrayList("classList", chipClassList);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
     }
 }
