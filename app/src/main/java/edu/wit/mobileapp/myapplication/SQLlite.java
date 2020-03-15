@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -18,13 +19,14 @@ public class SQLlite extends SQLiteOpenHelper {
     public SQLlite(Context context){
         super(context,DATABASE_NAME,null,1);
     }
+
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(
-                "create table courses " +
-                        "(courseName text primary key, classType text)"
-        );
-        db.execSQL("create table assignments" +" (id integer primary key, assignmentName text, dueDate date, courseName text)");
-        db.execSQL("create table year" +" (id integer primary key, yearSplit integer, schoolName text,yearOfSchool integer)");
+            db.execSQL(
+                    "create table courses " +
+                            "(courseName text primary key, classType text)"
+            );
+            db.execSQL("create table assignments" + " (id integer primary key, assignmentName text, dueDate date, courseName text)");
+            db.execSQL("create table year" + " (id integer primary key, yearSplit integer, schoolName text,yearOfSchool integer)");
 
     }
     public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
