@@ -33,7 +33,7 @@ public class AddInfoActivity extends AppCompatActivity implements View.OnClickLi
     Chip quarterlyChip;
     Chip semesterlyChip;
     Chip trimesterlyChip;
-    private final String TAG = "MAIN";
+    private final String TAG = "MAIN ACTIVITY";
     private static final String DATABASE_NAME = "database";
 
     @Override
@@ -41,28 +41,11 @@ public class AddInfoActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.information_entry_layout);
 
-        //Set DB PATH
-        String path = "/data/data/" + getPackageName() + "/database.db";
-        SQLiteDatabase db;
-        //Open or Create DB
-        db = SQLiteDatabase.openOrCreateDatabase(path, null);
-        //Get Application context then use it in SQLlite helper class
-        Context context = getApplicationContext();
-        final SQLlite dbHelper = new SQLlite(context);
-        File f = context.getDatabasePath(DATABASE_NAME);
-        long dbSize = f.length();
-        if (dbSize == 0) {
-            dbHelper.onCreate(db);
-        }
-
         // Linked Views to their ID
         editText = findViewById(R.id.edit_text_add_chip);
         button = findViewById(R.id.btn_add_chip_class);
         chipGroup = findViewById(R.id.class_group);
         next_btn = findViewById(R.id.buttonNext);
-
-
-        next_btn.setOnClickListener(this);
 
         //locate static elements on screen
         yearText = findViewById(R.id.textInputYear);
@@ -75,45 +58,8 @@ public class AddInfoActivity extends AppCompatActivity implements View.OnClickLi
 
         trimesterlyChip = findViewById(R.id.chip_trimester);
 
-        // OnClickListener in next_btn to Bundle and Intent to AddAssignmentActivity
-        // This bundles the chip texts inputted from the user
-        next_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(AddInfoActivity.this, AddAssignmentActivity.class);
-                Integer year = Integer.parseInt(yearText.getEditText().getText().toString());
-                String school = schoolText.getEditText().getText().toString();
-                int semesters;
-                if (quarterlyChip.isActivated()){
-                    semesters = 4;
-                }
-                else if (semesterlyChip.isActivated()) {
-                    semesters = 2;
-                }
-                else {
-                    semesters = 3;
-                }
-                dbHelper.insertYear(semesters, school, year);
-                ChipGroup chipGroupClass = findViewById(R.id.class_group);
-                Integer query = dbHelper.getYear().getColumnCount();
-                String stringQuery = query.toString();
-                Log.d(TAG, stringQuery);
+        next_btn.setOnClickListener(this);
 
-                ArrayList<String > chipClassList = new ArrayList<String>();
-
-                for(int i = 0; i < chipGroupClass.getChildCount();i++){
-                    Chip chip = (Chip)chipGroup.getChildAt(i);
-                        Log.v("myApp",i + " "+ chip.getText().toString());
-                        chipClassList.add(chip.getText().toString());
-                }
-                Bundle bundle = new Bundle();
-                bundle.putStringArrayList("classList", chipClassList);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-
-        });
     }
 
     public void btnClickAddClass(View view){
@@ -138,11 +84,41 @@ public class AddInfoActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
+
+        //Set DB PATH
+        String path = "/data/data/" + getPackageName() + "/database.db";
+        SQLiteDatabase db;
+        //Open or Create DB
+        db = SQLiteDatabase.openOrCreateDatabase(path, null);
+        //Get Application context then use it in SQLlite helper class
+        Context context = getApplicationContext();
+        final SQLlite dbHelper = new SQLlite(context);
+        File f = context.getDatabasePath(DATABASE_NAME);
+        long dbSize = f.length();
+        if (dbSize == 0) {
+            dbHelper.onCreate(db);
+        }
         // OnClickListener in next_btn to Bundle and Intent to AddAssignmentActivity
         // This bundles the chip texts inputted from the user
         if(v == next_btn) {
             Intent intent = new Intent();
             intent.setClass(AddInfoActivity.this, AddAssignmentActivity.class);
+            Integer year = Integer.parseInt(yearText.getEditText().getText().toString());
+            String school = schoolText.getEditText().getText().toString();
+            int semesters;
+            if (quarterlyChip.isActivated()){
+                semesters = 4;
+            }
+            else if (semesterlyChip.isActivated()) {
+                semesters = 2;
+            }
+            else {
+                semesters = 3;
+            }
+            dbHelper.insertYear(semesters, school, year);
+            Integer query = dbHelper.getYear().getColumnCount();
+            String stringQuery = query.toString();
+            Log.d(TAG, stringQuery);
 
             ChipGroup chipGroupClass = findViewById(R.id.class_group);
 
