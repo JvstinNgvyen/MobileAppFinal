@@ -87,17 +87,13 @@ public class AddInfoActivity extends AppCompatActivity implements View.OnClickLi
 
         //Set DB PATH
         String path = "/data/data/" + getPackageName() + "/database.db";
-        SQLiteDatabase db;
-        //Open or Create DB
-        db = SQLiteDatabase.openOrCreateDatabase(path, null);
-        //Get Application context then use it in SQLlite helper class
         Context context = getApplicationContext();
-        final SQLlite dbHelper = new SQLlite(context);
-        File f = context.getDatabasePath(DATABASE_NAME);
-        long dbSize = f.length();
-        if (dbSize == 0) {
-            dbHelper.onCreate(db);
-        }
+        //Use context and path to create SQLlite helper class object
+        SQLlite dbHelper = SQLlite.dbHelper(context, path);
+        //SQLiteDatabase db;
+        //db = SQLiteDatabase.openOrCreateDatabase(path, null);
+        //dbHelper.onUpgrade(db,0,1);
+
         // OnClickListener in next_btn to Bundle and Intent to AddAssignmentActivity
         // This bundles the chip texts inputted from the user
         if(v == next_btn) {
@@ -129,6 +125,7 @@ public class AddInfoActivity extends AppCompatActivity implements View.OnClickLi
                 Log.v("myApp", i + " " + chip.getText().toString());
                 chipClassList.add(chip.getText().toString());
             }
+            dbHelper.close();
             Bundle bundle = new Bundle();
             bundle.putStringArrayList("classList", chipClassList);
             intent.putExtras(bundle);

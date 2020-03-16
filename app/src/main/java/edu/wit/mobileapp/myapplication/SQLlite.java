@@ -25,7 +25,8 @@ public class SQLlite extends SQLiteOpenHelper {
                     "create table courses " +
                             "(courseName text primary key, classType text)"
             );
-            db.execSQL("create table assignments" + " (id integer primary key, assignmentName text, dueDate date, courseName text)");
+            db.execSQL("create table assignments" +
+                    "(assignmentName text primary key, priority text, courseName text, dueDate date, assignmentType text)");
             db.execSQL("create table year" + " (id integer primary key, yearSplit integer, schoolName text,yearOfSchool integer)");
 
     }
@@ -38,17 +39,20 @@ public class SQLlite extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("name", name);
-        contentValues.put("phone", classType);;
+        contentValues.put("classType", classType);;
         db.insert("courses", null, contentValues);
         return true;
     }
-    public boolean insertAssignment (String name, String courseName, Date date) {
+    public boolean insertAssignment (String name, String courseName, String date, String assignmentType, String priority) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("name", name);
-        contentValues.put("phone", courseName);
+        contentValues.put("assignmentName", name);
+        contentValues.put("courseName", courseName);
         contentValues.put("date", date.toString());
-        db.insert("assignment", null, contentValues);
+        contentValues.put("assignmentType", assignmentType);
+        contentValues.put("priority", priority);
+
+        db.insert("assignments", null, contentValues);
         return true;
     }
     public boolean insertYear(Integer yearSplit, String schoolName, Integer yearOfSchool) {
@@ -85,15 +89,30 @@ public class SQLlite extends SQLiteOpenHelper {
     public ArrayList<String> getAllAssignments() {
         ArrayList<String> array_list = new ArrayList<String>();
 
-        //hp = new HashMap();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res =  db.rawQuery( "select * from assignments", null );
         res.moveToFirst();
 
         while(res.isAfterLast() == false){
+            array_list.add(res.getString(res.getColumnIndex("assignmentName")));
             array_list.add(res.getString(res.getColumnIndex("courseName")));
+            array_list.add(res.getString(res.getColumnIndex("date")));
+            array_list.add(res.getString(res.getColumnIndex("assignmentType")));
+            array_list.add(res.getString(res.getColumnIndex("priority")));
             res.moveToNext();
         }
         return array_list;
+    }
+    public static SQLlite dbHelper(Context context, String path) {
+        SQLiteDatabase db;
+        db = SQLiteDatabase.openOrCreateDatabase(path, null);
+        final SQLlite dbHelper = new SQLlite(context);
+        File f = context.getDatabasePath(DATABASE_NAME);
+        long dbSize = f.length();
+        if (dbSize == 0) {
+            dbHelper.onCreate(db);
+        }
+
+        return dbHelper;
     }
 }

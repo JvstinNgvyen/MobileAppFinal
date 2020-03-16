@@ -32,7 +32,7 @@ public class CardItemAdapter extends ArrayAdapter<CardItem> {
 
         TextView assignment;
         assignment = (TextView) view.findViewById(R.id.assignment);
-        assignment.setText(item.assignment);
+        assignment.setText(item.assignmentType);
 
         TextView classes;
         classes = (TextView) view.findViewById(R.id.classes);
