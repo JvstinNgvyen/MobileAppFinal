@@ -39,6 +39,8 @@ public class AddInfoActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String path = "/data/data/" + getPackageName() + "/" + DATABASE_NAME + ".db";
+        Log.d("DATABASE: ", path);
         setContentView(R.layout.information_entry_layout);
 
         // Linked Views to their ID
@@ -93,6 +95,7 @@ public class AddInfoActivity extends AppCompatActivity implements View.OnClickLi
         //SQLiteDatabase db;
         //db = SQLiteDatabase.openOrCreateDatabase(path, null);
         //dbHelper.onUpgrade(db,0,1);
+
 
         // OnClickListener in next_btn to Bundle and Intent to AddAssignmentActivity
         // This bundles the chip texts inputted from the user

@@ -19,7 +19,7 @@ import java.util.List;
 
 public class CardViewAssignmentActivity extends AppCompatActivity implements View.OnClickListener{
     private FloatingActionButton mAddFab;
-    private static final String DATABASE_NAME = "database";
+    private static final String DATABASE_NAME = "/database";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class CardViewAssignmentActivity extends AppCompatActivity implements Vie
         setContentView(R.layout.card_view_layout);
         Log.v("CardView", "start");
         //Set DB PATH
-        String path = "/data/data/" + getPackageName() + "/database.db";
+        String path = "/data/data/" + getPackageName() + DATABASE_NAME + ".db";
         Context context = getApplicationContext();
         //Use context and path to create SQLlite helper class object
         SQLlite dbHelper = SQLlite.dbHelper(context, path);
@@ -46,6 +46,7 @@ public class CardViewAssignmentActivity extends AppCompatActivity implements Vie
 
         List<CardItem> list = new ArrayList<>();
         ArrayList<String> allAssignments = dbHelper.getAllAssignments();
+        Log.v("cardLoop", allAssignments.get(0));
         for (int i = 0; i < allAssignments.size(); i+=5) {
             CardItem cardItem = new CardItem();
             cardItem.title = allAssignments.get(i);
@@ -67,8 +68,8 @@ public class CardViewAssignmentActivity extends AppCompatActivity implements Vie
     public void onClick(View v) {
         if(v == mAddFab) {
             Intent intent = new Intent();
-            intent.setClass(CardViewAssignmentActivity.this, AddAssignmentActivity.class);
-            startActivity(intent);
+          //  intent.setClass(CardViewAssignmentActivity.this, AddAssignmentActivity.class);
+         //   startActivity(intent);
         }
     }
 }

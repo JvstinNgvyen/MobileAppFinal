@@ -22,6 +22,7 @@ public class AddAssignmentActivity extends AppCompatActivity implements View.OnC
     private int mYear, mMonth, mDay;
     Button addBtn;
     EditText txtDate;
+    private static final String DATABASE_NAME = "/database";
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -136,11 +137,11 @@ public class AddAssignmentActivity extends AppCompatActivity implements View.OnC
 
             bundle.putString("priority", priority);
             //Log.v("myApp", priority);
-            String path = "/data/data/" + getPackageName() + "/database.db";
+            String path = "/data/data/" + getPackageName() + DATABASE_NAME + ".db";
             Context context = getApplicationContext();
             //Use context and path to create SQLlite helper class object
             SQLlite dbHelper = SQLlite.dbHelper(context, path);
-            dbHelper.insertAssignment(title, classes,due,assignment,priority);
+            dbHelper.insertAssignment(title, priority,classes,due,assignment);
             intent.putExtras(bundle);
             startActivity(intent);
         }
