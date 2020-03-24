@@ -2,7 +2,10 @@ package edu.wit.mobileapp.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,7 +15,10 @@ import android.widget.EditText;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipDrawable;
 import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class AddInfoActivity extends AppCompatActivity implements View.OnClickListener {
@@ -21,9 +27,20 @@ public class AddInfoActivity extends AppCompatActivity implements View.OnClickLi
     private Button button;
     private ChipGroup chipGroup;
 
+    private TextInputLayout yearText;
+    private TextInputLayout schoolText;
+
+    Chip quarterlyChip;
+    Chip semesterlyChip;
+    Chip trimesterlyChip;
+    private final String TAG = "MAIN ACTIVITY";
+    private static final String DATABASE_NAME = "database";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String path = "/data/data/" + getPackageName() + "/" + DATABASE_NAME + ".db";
+        Log.d("DATABASE: ", path);
         setContentView(R.layout.information_entry_layout);
 
         // Linked Views to their ID
@@ -32,7 +49,19 @@ public class AddInfoActivity extends AppCompatActivity implements View.OnClickLi
         chipGroup = findViewById(R.id.class_group);
         next_btn = findViewById(R.id.buttonNext);
 
+        //locate static elements on screen
+        yearText = findViewById(R.id.textInputYear);
+
+        schoolText = findViewById(R.id.textInputSchoolName);
+
+        quarterlyChip = findViewById(R.id.chip_quarter);
+
+        semesterlyChip = findViewById(R.id.chip_semester);
+
+        trimesterlyChip = findViewById(R.id.chip_trimester);
+
         next_btn.setOnClickListener(this);
+
     }
 
     public void btnClickAddClass(View view){
@@ -57,11 +86,38 @@ public class AddInfoActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
+
+        //Set DB PATH
+        String path = "/data/data/" + getPackageName() + "/database.db";
+        Context context = getApplicationContext();
+        //Use context and path to create SQLlite helper class object
+        SQLlite dbHelper = SQLlite.dbHelper(context, path);
+        //SQLiteDatabase db;
+        //db = SQLiteDatabase.openOrCreateDatabase(path, null);
+        //dbHelper.onUpgrade(db,0,1);
+
+
         // OnClickListener in next_btn to Bundle and Intent to AddAssignmentActivity
         // This bundles the chip texts inputted from the user
         if(v == next_btn) {
             Intent intent = new Intent();
             intent.setClass(AddInfoActivity.this, AddAssignmentActivity.class);
+            Integer year = Integer.parseInt(yearText.getEditText().getText().toString());
+            String school = schoolText.getEditText().getText().toString();
+            int semesters;
+            if (quarterlyChip.isActivated()){
+                semesters = 4;
+            }
+            else if (semesterlyChip.isActivated()) {
+                semesters = 2;
+            }
+            else {
+                semesters = 3;
+            }
+            dbHelper.insertYear(semesters, school, year);
+            Integer query = dbHelper.getYear().getColumnCount();
+            String stringQuery = query.toString();
+            Log.d(TAG, stringQuery);
 
             ChipGroup chipGroupClass = findViewById(R.id.class_group);
 
@@ -72,6 +128,7 @@ public class AddInfoActivity extends AppCompatActivity implements View.OnClickLi
                 Log.v("myApp", i + " " + chip.getText().toString());
                 chipClassList.add(chip.getText().toString());
             }
+            dbHelper.close();
             Bundle bundle = new Bundle();
             bundle.putStringArrayList("classList", chipClassList);
             intent.putExtras(bundle);

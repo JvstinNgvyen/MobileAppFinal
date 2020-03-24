@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -14,39 +15,48 @@ import static android.database.sqlite.SQLiteDatabase.openOrCreateDatabase;
 
 public class SQLlite extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "database";
+    private static int DATABASE_VERSION = 6;
+
 
     public SQLlite(Context context){
-        super(context,DATABASE_NAME,null,1);
+        super(context,DATABASE_NAME,null,DATABASE_VERSION);
     }
-    public void onCreate(SQLiteDatabase db) {
-        db.execSQL(
-                "create table courses " +
-                        "(courseName text primary key, classType text)"
-        );
-        db.execSQL("create table assignments" +" (id integer primary key, assignmentName text, dueDate date, courseName text)");
-        db.execSQL("create table year" +" (id integer primary key, yearSplit integer, schoolName text,yearOfSchool integer)");
 
+    public void onCreate(SQLiteDatabase db) {
+            db.execSQL(
+                    "create table courses " +
+                            "(courseName text primary key, classType text)"
+            );
+            db.execSQL("create table assignments" +
+                    "(assignmentName Ftext primary key, priority text, courseName text, dueDate date, assignmentType text)");
+            db.execSQL("create table year" + " (id integer primary key, yearSplit integer, schoolName text,yearOfSchool integer)");
     }
+
     public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
         database.execSQL("DROP TABLE IF EXISTS courses");
         database.execSQL("DROP TABLE IF EXISTS assignments");
+        database.execSQL("DROP TABLE IF EXISTS year");
         onCreate(database);
     }
     public boolean insertCourse (String name, String classType) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("name", name);
-        contentValues.put("phone", classType);;
+        contentValues.put("classType", classType);;
         db.insert("courses", null, contentValues);
         return true;
     }
-    public boolean insertAssignment (String name, String courseName, Date date) {
+    public boolean insertAssignment (String name, String courseName, String date, String assignmentType, String priority) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("name", name);
-        contentValues.put("phone", courseName);
-        contentValues.put("date", date.toString());
-        db.insert("assignment", null, contentValues);
+        contentValues.put("assignmentName", name);
+        contentValues.put("priority", priority);
+        contentValues.put("courseName", courseName);
+        contentValues.put("dueDate", date);
+        contentValues.put("assignmentType", assignmentType);
+
+
+        db.insert("assignments", null, contentValues);
         return true;
     }
     public boolean insertYear(Integer yearSplit, String schoolName, Integer yearOfSchool) {
@@ -83,15 +93,36 @@ public class SQLlite extends SQLiteOpenHelper {
     public ArrayList<String> getAllAssignments() {
         ArrayList<String> array_list = new ArrayList<String>();
 
-        //hp = new HashMap();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res =  db.rawQuery( "select * from assignments", null );
         res.moveToFirst();
 
         while(res.isAfterLast() == false){
+            array_list.add(res.getString(res.getColumnIndex("assignmentName")));
             array_list.add(res.getString(res.getColumnIndex("courseName")));
+            array_list.add(res.getString(res.getColumnIndex("dueDate")));
+            array_list.add(res.getString(res.getColumnIndex("assignmentType")));
+            array_list.add(res.getString(res.getColumnIndex("priority")));
             res.moveToNext();
         }
         return array_list;
+    }
+    public static SQLlite dbHelper(Context context, String path) {
+        SQLiteDatabase db;
+        db = SQLiteDatabase.openOrCreateDatabase(path, null);
+        final SQLlite dbHelper = new SQLlite(context);
+        File f = context.getDatabasePath(DATABASE_NAME);
+      //  long dbSize = f.length();
+        if (!f.exists()) {
+            dbHelper.onCreate(db);
+        }
+        else {
+            if (DATABASE_VERSION < 1) {
+                dbHelper.onUpgrade(db, 1, DATABASE_VERSION);
+                DATABASE_VERSION++;
+            }
+        }
+
+        return dbHelper;
     }
 }

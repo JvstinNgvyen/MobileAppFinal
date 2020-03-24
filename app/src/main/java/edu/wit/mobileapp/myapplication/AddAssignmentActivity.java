@@ -1,6 +1,7 @@
 package edu.wit.mobileapp.myapplication;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +22,7 @@ public class AddAssignmentActivity extends AppCompatActivity implements View.OnC
     private int mYear, mMonth, mDay;
     Button addBtn;
     EditText txtDate;
+    private static final String DATABASE_NAME = "/database";
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -54,6 +56,7 @@ public class AddAssignmentActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
+
         // Get Due Date
         if (v == txtDate) {
             // Get Current Date
@@ -121,20 +124,24 @@ public class AddAssignmentActivity extends AppCompatActivity implements View.OnC
 
             Bundle bundle = new Bundle();
             bundle.putString("title", title);
-            Log.v("myApp", title);
+           // Log.v("myApp", title);
 
             bundle.putString("due", due);
-            Log.v("myApp", due);
+            //Log.v("myApp", due);
 
             bundle.putString("class", classes);
-            Log.v("myApp", classes);
+            //Log.v("myApp", classes);
 
             bundle.putString("assignment", assignment);
-            Log.v("myApp", assignment);
+            //Log.v("myApp", assignment);
 
             bundle.putString("priority", priority);
-            Log.v("myApp", priority);
-
+            //Log.v("myApp", priority);
+            String path = "/data/data/" + getPackageName() + DATABASE_NAME + ".db";
+            Context context = getApplicationContext();
+            //Use context and path to create SQLlite helper class object
+            SQLlite dbHelper = SQLlite.dbHelper(context, path);
+            dbHelper.insertAssignment(title, priority,classes,due,assignment);
             intent.putExtras(bundle);
             startActivity(intent);
         }

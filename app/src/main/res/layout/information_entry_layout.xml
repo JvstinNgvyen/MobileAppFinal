@@ -48,7 +48,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter School Name" />
+            android:hint="Enter School Name"
+            android:id="@+id/textInputEditTextSchoolName"
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -137,29 +139,6 @@
     </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="341dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        app:boxBackgroundMode="outline"
-        app:boxCornerRadiusTopEnd="16dp"
-        app:boxCornerRadiusTopStart="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.175">
-
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter Year"
-            android:inputType="date" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputYear"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="341dp"
@@ -173,10 +152,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.175">
+        app:layout_constraintVertical_bias="0.175"
+        >
 
 
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Year"
+            android:inputType="date"
+            android:id="@+id/textInputEditTextYear"
+            />
     </com.google.android.material.textfield.TextInputLayout>
+
+
 
     <TextView
         android:id="@+id/textViewTermType"
