@@ -68,8 +68,8 @@ public class CardViewAssignmentActivity extends AppCompatActivity implements Vie
     public void onClick(View v) {
         if(v == mAddFab) {
             Intent intent = new Intent();
-          //  intent.setClass(CardViewAssignmentActivity.this, AddAssignmentActivity.class);
-         //   startActivity(intent);
+            intent.setClass(CardViewAssignmentActivity.this, AddAssignmentActivity.class);
+            startActivity(intent);
         }
     }
 }
