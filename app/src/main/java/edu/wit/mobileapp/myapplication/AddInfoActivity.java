@@ -39,8 +39,13 @@ public class AddInfoActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String path = "/data/data/" + getPackageName() + "/" + DATABASE_NAME + ".db";
+        //Set DB PATH
+        String path = "/data/data/" + getPackageName() + "/database.db";
         Log.d("DATABASE: ", path);
+        Context context = getApplicationContext();
+        //Use context and path to create SQLlite helper class object
+        SQLlite dbHelper = SQLlite.dbHelper(context, path);
+
         setContentView(R.layout.information_entry_layout);
 
         // Linked Views to their ID
@@ -92,9 +97,7 @@ public class AddInfoActivity extends AppCompatActivity implements View.OnClickLi
         Context context = getApplicationContext();
         //Use context and path to create SQLlite helper class object
         SQLlite dbHelper = SQLlite.dbHelper(context, path);
-        //SQLiteDatabase db;
-        //db = SQLiteDatabase.openOrCreateDatabase(path, null);
-        //dbHelper.onUpgrade(db,0,1);
+
 
 
         // OnClickListener in next_btn to Bundle and Intent to AddAssignmentActivity
@@ -127,6 +130,7 @@ public class AddInfoActivity extends AppCompatActivity implements View.OnClickLi
                 Chip chip = (Chip) chipGroup.getChildAt(i);
                 Log.v("myApp", i + " " + chip.getText().toString());
                 chipClassList.add(chip.getText().toString());
+                dbHelper.insertCourse(chip.getText().toString());
             }
             dbHelper.close();
             Bundle bundle = new Bundle();

@@ -122,27 +122,13 @@ public class AddAssignmentActivity extends AppCompatActivity implements View.OnC
                 }
             }
 
-            Bundle bundle = new Bundle();
-            bundle.putString("title", title);
-           // Log.v("myApp", title);
 
-            bundle.putString("due", due);
-            //Log.v("myApp", due);
-
-            bundle.putString("class", classes);
-            //Log.v("myApp", classes);
-
-            bundle.putString("assignment", assignment);
-            //Log.v("myApp", assignment);
-
-            bundle.putString("priority", priority);
-            //Log.v("myApp", priority);
             String path = "/data/data/" + getPackageName() + DATABASE_NAME + ".db";
             Context context = getApplicationContext();
             //Use context and path to create SQLlite helper class object
             SQLlite dbHelper = SQLlite.dbHelper(context, path);
             dbHelper.insertAssignment(title, priority,classes,due,assignment);
-            intent.putExtras(bundle);
+            //dbHelper.close();
             startActivity(intent);
         }
     }
