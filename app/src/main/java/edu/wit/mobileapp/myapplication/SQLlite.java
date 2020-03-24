@@ -104,7 +104,7 @@ public class SQLlite extends SQLiteOpenHelper {
         ArrayList<String> array_list = new ArrayList<String>();
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from assignments", null );
+        Cursor res =  db.rawQuery( "select * from assignments ORDER BY dueDate DESC", null );
         res.moveToFirst();
 
         while(res.isAfterLast() == false){

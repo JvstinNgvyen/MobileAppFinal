@@ -136,6 +136,7 @@ public class AddInfoActivity extends AppCompatActivity implements View.OnClickLi
             Bundle bundle = new Bundle();
             bundle.putStringArrayList("classList", chipClassList);
             intent.putExtras(bundle);
+            finish();
             startActivity(intent);
         }
     }

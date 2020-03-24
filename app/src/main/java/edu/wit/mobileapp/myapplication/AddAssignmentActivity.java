@@ -129,6 +129,7 @@ public class AddAssignmentActivity extends AppCompatActivity implements View.OnC
             SQLlite dbHelper = SQLlite.dbHelper(context, path);
             dbHelper.insertAssignment(title, priority,classes,due,assignment);
             //dbHelper.close();
+            finish();
             startActivity(intent);
         }
     }
