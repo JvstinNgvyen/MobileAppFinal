@@ -50,7 +50,7 @@ public class CardViewAssignmentActivity extends AppCompatActivity implements Vie
             list.add(cardItem);
             Log.v("cardLoop", cardItem.toString());
         }
-        //dbHelper.close();
+        dbHelper.close();
 
         CardItemAdapter adapter;
         adapter = new CardItemAdapter(this, 0, list);

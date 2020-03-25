@@ -77,6 +77,7 @@ public class SQLlite extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res =  db.rawQuery( "select courseName from courses", null);
 
+        res.moveToFirst();
         while(res.isAfterLast() == false){
             array_list.add(res.getString(res.getColumnIndex("courseName")));
             res.moveToNext();
