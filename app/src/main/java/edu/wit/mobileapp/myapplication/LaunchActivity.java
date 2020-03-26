@@ -7,6 +7,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+/**
+ * Empty launch activity, this will determine which activity to launch
+ *      1. AddInfo activity
+ *      2. CardView activity
+ *      3. Original template done by author below, modified for our use-case
+ * @author erangaeb@gmail.com (eranga herath)
+ * https://coderwall.com/p/n4qaaa/programatically-change-main-launch-activity-in-android
+ * @author Ryan Gould
+ */
 public class LaunchActivity extends AppCompatActivity {
     private static final String DATABASE_NAME = "/database";
 
