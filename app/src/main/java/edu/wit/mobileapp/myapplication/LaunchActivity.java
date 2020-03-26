@@ -11,7 +11,7 @@ import android.util.Log;
  * Empty launch activity, this will determine which activity to launch
  *      1. AddInfo activity
  *      2. CardView activity
- *      3. Original template done by author below
+ *      3. Original template done by author below, modified for our use-case
  * @author erangaeb@gmail.com (eranga herath)
  * @author Ryan Gould
  */
