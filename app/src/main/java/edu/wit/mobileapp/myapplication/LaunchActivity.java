@@ -37,6 +37,7 @@ public class LaunchActivity extends AppCompatActivity {
         } else {
             Intent intent = new Intent(this, CardViewAssignmentActivity.class);
             Log.v("LAUNCHER:", "cardViewActivity");
+            dbHelper.close();
             finish();
             startActivity(intent);
         }
