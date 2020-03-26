@@ -9,10 +9,11 @@ import android.util.Log;
 
 /**
  * Empty launch activity, this will determine which activity to launch
- *      1. Splash activity
- *      2. Home activity
- *
+ *      1. AddInfo activity
+ *      2. CardView activity
+ *      3. Original template done by author below
  * @author erangaeb@gmail.com (eranga herath)
+ * @author Ryan Gould
  */
 public class LaunchActivity extends AppCompatActivity {
     private static final String DATABASE_NAME = "/database";
