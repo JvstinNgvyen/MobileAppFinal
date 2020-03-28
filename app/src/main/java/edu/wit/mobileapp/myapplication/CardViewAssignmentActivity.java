@@ -37,13 +37,6 @@ public class CardViewAssignmentActivity extends AppCompatActivity implements Vie
 
         mAddFab.setOnClickListener(this);
 
-        Bundle bundle = this.getIntent().getExtras();
-        String title = bundle.getString("title");
-        String due = bundle.getString("due");
-        String classes = bundle.getString("class");
-        String assignment = bundle.getString("assignment");
-        String priority = bundle.getString("priority");
-
         List<CardItem> list = new ArrayList<>();
         ArrayList<String> allAssignments = dbHelper.getAllAssignments();
         Log.v("cardLoop", allAssignments.get(0));
@@ -57,6 +50,7 @@ public class CardViewAssignmentActivity extends AppCompatActivity implements Vie
             list.add(cardItem);
             Log.v("cardLoop", cardItem.toString());
         }
+        dbHelper.close();
 
         CardItemAdapter adapter;
         adapter = new CardItemAdapter(this, 0, list);

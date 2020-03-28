@@ -18,7 +18,6 @@ import java.util.Calendar;
 
 public class AddAssignmentActivity extends AppCompatActivity implements View.OnClickListener{
     private ChipGroup chipGroup;
-    private ArrayList<String> chipList;
     private int mYear, mMonth, mDay;
     Button addBtn;
     EditText txtDate;
@@ -29,6 +28,12 @@ public class AddAssignmentActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_assignment_layout);
 
+        //Set DB PATH
+        String path = "/data/data/" + getPackageName() + DATABASE_NAME + ".db";
+        Context context = getApplicationContext();
+        //Use context and path to create SQLlite helper class object
+        SQLlite dbHelper = SQLlite.dbHelper(context, path);
+
         // Linked views to their ID
         chipGroup = findViewById(R.id.class_type_group);
         txtDate=(EditText)findViewById(R.id.input_due);
@@ -37,9 +42,13 @@ public class AddAssignmentActivity extends AppCompatActivity implements View.OnC
         // Set on click listeners
         addBtn.setOnClickListener(this);
         txtDate.setOnClickListener(this);
+        ArrayList<String> chipList;
 
         // Retrieves bundled ArrayList of classes as strings then sets it to a chip choice
-        chipList = getIntent().getExtras().getStringArrayList("classList");
+        chipList = dbHelper.getCourseNames();
+        dbHelper.close();
+       // chipList = getIntent().getExtras().getStringArrayList("classList");
+
         for(int i = 0; i < chipList.size(); i++){
             final Chip chip = new Chip(this);
             ChipDrawable drawable = ChipDrawable.createFromAttributes(this,null,0,R.style.Widget_MaterialComponents_Chip_Choice);
@@ -122,27 +131,14 @@ public class AddAssignmentActivity extends AppCompatActivity implements View.OnC
                 }
             }
 
-            Bundle bundle = new Bundle();
-            bundle.putString("title", title);
-           // Log.v("myApp", title);
 
-            bundle.putString("due", due);
-            //Log.v("myApp", due);
-
-            bundle.putString("class", classes);
-            //Log.v("myApp", classes);
-
-            bundle.putString("assignment", assignment);
-            //Log.v("myApp", assignment);
-
-            bundle.putString("priority", priority);
-            //Log.v("myApp", priority);
             String path = "/data/data/" + getPackageName() + DATABASE_NAME + ".db";
             Context context = getApplicationContext();
             //Use context and path to create SQLlite helper class object
             SQLlite dbHelper = SQLlite.dbHelper(context, path);
             dbHelper.insertAssignment(title, priority,classes,due,assignment);
-            intent.putExtras(bundle);
+            //dbHelper.close();
+            finish();
             startActivity(intent);
         }
     }
