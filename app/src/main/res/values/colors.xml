@@ -8,4 +8,5 @@
     <color name="high">#BFED6A5F</color>
     <color name="defaultChip">#EBEBEB</color>
     <color name="checkedChip">#BF7075AD</color>
+    <color name="white">#FFFFFF</color>
 </resources>
