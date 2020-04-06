@@ -81,12 +81,12 @@ public class CardViewAssignmentActivity extends AppCompatActivity{
         ArrayList<String> allAssignments = dbHelper.getAllAssignments();
         //Log.v("cardLoop", allAssignments.get(0));
         for (int i = 0; i < allAssignments.size(); i+=5) {
-            CardItem cardItem = new CardItem();
+            CardItem cardItem = new CardItem(context);
             cardItem.title = allAssignments.get(i);
-            cardItem.priority = allAssignments.get(i+1);
-            cardItem.classes = allAssignments.get(i+2);
-            cardItem.date = allAssignments.get(i+3);;
-            cardItem.assignmentType = allAssignments.get(i+4);
+            cardItem.classes = allAssignments.get(i+1);
+            cardItem.date = allAssignments.get(i+2);
+            cardItem.assignmentType = allAssignments.get(i+3);;
+            cardItem.priority = allAssignments.get(i+4);
             list.add(cardItem);
             Log.v("cardLoop", cardItem.toString());
         }
