@@ -20,6 +20,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class DataActivity extends AppCompatActivity {
     private static final String DATABASE_NAME = "/database";
 
@@ -30,6 +35,8 @@ public class DataActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_layout);
+
+
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.data);
@@ -88,7 +95,6 @@ public class DataActivity extends AppCompatActivity {
         adapter = new CountAdapter(this, 0, counters);
         ListView cardView = (ListView) findViewById(R.id.CountView);
         cardView.setAdapter(adapter);
-
 
     }
 
