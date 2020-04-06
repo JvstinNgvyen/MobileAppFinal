@@ -9,7 +9,6 @@ public class CardItem {
     public String classes;
     public String priority;
 
-
     @Override
     public String toString() {
         return "CardItem{" +

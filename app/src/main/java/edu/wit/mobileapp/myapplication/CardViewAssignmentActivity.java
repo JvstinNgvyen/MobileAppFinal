@@ -2,29 +2,33 @@ package edu.wit.mobileapp.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-public class CardViewAssignmentActivity extends AppCompatActivity implements View.OnClickListener{
+public class CardViewAssignmentActivity extends AppCompatActivity{
     private FloatingActionButton mAddFab;
     private BottomNavigationView bottomNavigationView;
+    public Button deleteBtn;
     private static final String DATABASE_NAME = "/database";
+    public List<CardItem> list;
+    private PopupMenu popup;
+    private Integer number = 0;
+    private CardItemAdapter adapter;
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,13 +65,21 @@ public class CardViewAssignmentActivity extends AppCompatActivity implements Vie
         //Use context and path to create SQLlite helper class object
         SQLlite dbHelper = SQLlite.dbHelper(context, path);
         Log.v("CardView", "here");
-        // Linked views to their ID
-        mAddFab = findViewById(R.id.floatingActionButton);
-        mAddFab.setOnClickListener(this);
 
-        List<CardItem> list = new ArrayList<>();
+        // Floating Action Button
+        mAddFab = findViewById(R.id.floatingActionButton);
+        mAddFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(CardViewAssignmentActivity.this, AddAssignmentActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        list = new ArrayList<>();
         ArrayList<String> allAssignments = dbHelper.getAllAssignments();
-//        Log.v("cardLoop", allAssignments.get(0));
+        //Log.v("cardLoop", allAssignments.get(0));
         for (int i = 0; i < allAssignments.size(); i+=5) {
             CardItem cardItem = new CardItem();
             cardItem.title = allAssignments.get(i);
@@ -80,19 +92,47 @@ public class CardViewAssignmentActivity extends AppCompatActivity implements Vie
         }
         dbHelper.close();
 
-        CardItemAdapter adapter;
         adapter = new CardItemAdapter(this, 0, list);
         ListView cardView = (ListView) findViewById(R.id.CardView);
         cardView.setAdapter(adapter);
+
+        deleteBtn = findViewById(R.id.delete);
+        //deleteBtn.setVisibility(View.INVISIBLE);
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                remove(number);
+                //deleteBtn.setVisibility(View.INVISIBLE);
+            }
+        });
     }
 
-    @Override
-    public void onClick(View v) {
-        if(v == mAddFab) {
-            Intent intent = new Intent();
-            intent.setClass(CardViewAssignmentActivity.this, AddAssignmentActivity.class);
-            startActivity(intent);
-        }
+    public void showPopupMenu(View view, final int position) {
+        // Inflate Menu
+        popup = new PopupMenu(view.getContext(), view);
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.menu_card, popup.getMenu());
 
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+
+                switch (item.getItemId()) {
+                    case R.id.delete:
+                        Log.v("myApp", String.valueOf(position));
+                        number = position;
+                        Log.v("myApp", String.valueOf(number));
+                        return true;
+                }
+                return false;
+            }
+        });
+        popup.show();
+    }
+
+    public void remove(int position){
+        adapter.remove(adapter.getItem(position));
+        adapter.notifyDataSetChanged();
     }
 }
