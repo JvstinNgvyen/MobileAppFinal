@@ -10,17 +10,20 @@
         android:id="@+id/floatingActionButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="450dp"
-        android:layout_marginLeft="170dp"
         android:clickable="true"
-        app:srcCompat="@drawable/ic_add_black_24dp" />
+        app:srcCompat="@drawable/ic_add_black_24dp"
+        android:layout_alignBottom="@id/bottom_navigation"
+        android:layout_marginBottom="80dp"
+        android:layout_marginLeft="50dp"/>
     <Button
         android:id = "@+id/delete"
         android:text = "Delete?"
         android:layout_width = "wrap_content"
         android:layout_height = "wrap_content"
-        android:layout_marginTop="250dp"
-        android:layout_marginLeft="155dp"
+        android:layout_alignBottom="@id/bottom_navigation"
+        android:layout_alignRight="@id/bottom_navigation"
+        android:layout_marginBottom="80dp"
+        android:layout_marginRight="50dp"
         />
     <ListView
         android:id="@+id/CardView"
