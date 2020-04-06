@@ -6,15 +6,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class DataActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
+    private WebView webView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_layout);
+
+
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.data);
@@ -38,5 +49,7 @@ public class DataActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+
     }
 }

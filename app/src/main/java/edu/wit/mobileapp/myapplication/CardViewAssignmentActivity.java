@@ -22,9 +22,9 @@ import java.util.List;
 public class CardViewAssignmentActivity extends AppCompatActivity{
     private FloatingActionButton mAddFab;
     private BottomNavigationView bottomNavigationView;
-    public Button deleteBtn;
+    Button deleteBtn;
     private static final String DATABASE_NAME = "/database";
-    public List<CardItem> list;
+    private List<CardItem> list;
     private PopupMenu popup;
     private Integer number = 0;
     private CardItemAdapter adapter;
@@ -34,6 +34,7 @@ public class CardViewAssignmentActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.card_view_layout);
+        deleteBtn = findViewById(R.id.deleteBtn);
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.today);
@@ -96,7 +97,6 @@ public class CardViewAssignmentActivity extends AppCompatActivity{
         ListView cardView = (ListView) findViewById(R.id.CardView);
         cardView.setAdapter(adapter);
 
-        deleteBtn = findViewById(R.id.delete);
         //deleteBtn.setVisibility(View.INVISIBLE);
         deleteBtn.setOnClickListener(new View.OnClickListener() {
 
@@ -121,8 +121,11 @@ public class CardViewAssignmentActivity extends AppCompatActivity{
                 switch (item.getItemId()) {
                     case R.id.delete:
                         Log.v("myApp", String.valueOf(position));
+
+                        //deleteBtn.setVisibility(View.VISIBLE);
                         number = position;
                         Log.v("myApp", String.valueOf(number));
+
                         return true;
                 }
                 return false;
