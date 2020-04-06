@@ -3,11 +3,14 @@ package edu.wit.mobileapp.myapplication;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.Image;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -20,6 +23,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class CardViewAssignmentActivity extends AppCompatActivity implements View.OnClickListener{
     private FloatingActionButton mAddFab;
@@ -69,12 +73,14 @@ public class CardViewAssignmentActivity extends AppCompatActivity implements Vie
         ArrayList<String> allAssignments = dbHelper.getAllAssignments();
 //        Log.v("cardLoop", allAssignments.get(0));
         for (int i = 0; i < allAssignments.size(); i+=5) {
-            CardItem cardItem = new CardItem();
+            CardItem cardItem = new CardItem(context);
             cardItem.title = allAssignments.get(i);
             cardItem.priority = allAssignments.get(i+1);
             cardItem.classes = allAssignments.get(i+2);
             cardItem.date = allAssignments.get(i+3);;
             cardItem.assignmentType = allAssignments.get(i+4);
+            cardItem.speechString = cardItem.toString();
+
             list.add(cardItem);
             Log.v("cardLoop", cardItem.toString());
         }
