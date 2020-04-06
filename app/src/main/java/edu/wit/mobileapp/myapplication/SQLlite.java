@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.io.File;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -100,6 +102,38 @@ public class SQLlite extends SQLiteOpenHelper {
         return db.delete("assignments",
                 "assignmentName = ? ",
                 new String[] { assignmentName });
+    }
+    public ArrayList<String> getAllAssignmentDueDates() {
+        ArrayList<String> array_list = new ArrayList<String>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select dueDate from assignments", null );
+        res.moveToFirst();
+
+        while(res.isAfterLast() == false){
+            array_list.add(res.getString(res.getColumnIndex("dueDate")));
+            res.moveToNext();
+        }
+        return array_list;
+    }
+    public ArrayList<String> getAssignmentByDueDate(String dateDue) {
+        ArrayList<String> array_list = new ArrayList<String>();
+        String[] args = new String[1];
+        args[0] = dateDue;
+        SQLiteDatabase db = this.getReadableDatabase();
+        String SQL = "select * from assignments where dueDate = ?";
+        Cursor res =  db.rawQuery( SQL, args );
+        res.moveToFirst();
+
+        while(res.isAfterLast() == false){
+            array_list.add(res.getString(res.getColumnIndex("assignmentName")));
+            array_list.add(res.getString(res.getColumnIndex("courseName")));
+            array_list.add(res.getString(res.getColumnIndex("dueDate")));
+            array_list.add(res.getString(res.getColumnIndex("assignmentType")));
+            array_list.add(res.getString(res.getColumnIndex("priority")));
+            res.moveToNext();
+        }
+        return array_list;
     }
     public ArrayList<String> getAllAssignments() {
         ArrayList<String> array_list = new ArrayList<String>();

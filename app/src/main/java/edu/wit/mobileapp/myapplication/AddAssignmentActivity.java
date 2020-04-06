@@ -170,7 +170,7 @@ public class AddAssignmentActivity extends AppCompatActivity implements View.OnC
                 String title = titleText.getText().toString();
                 String due = dueText.getText().toString();
 
-                dbHelper.insertAssignment(title, priority, classes, due, assignment);
+                dbHelper.insertAssignment(title, classes, due, assignment, priority);
                 dbHelper.close();
                 finish();
                 startActivity(intent);

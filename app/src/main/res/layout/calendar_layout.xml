@@ -6,10 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-<CalendarView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
-</CalendarView>
+    <CalendarView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/calendarView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </CalendarView>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,5 +20,14 @@
         app:itemTextColor="@color/white"
         app:menu="@menu/menu_navigator"
         android:layout_alignParentBottom="true"/>
+
+    <ListView
+        android:id="@+id/CardView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="300dp"
+        android:layout_marginBottom="60dp">
+
+    </ListView>
 
 </RelativeLayout>
