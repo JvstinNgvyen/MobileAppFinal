@@ -84,10 +84,17 @@ public class SQLlite extends SQLiteOpenHelper {
         }
         return array_list;
     }
-    public Cursor getYear() {
+    public ArrayList<String> getYear() {
+        ArrayList<String> array_list = new ArrayList<String>();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res =  db.rawQuery( "select * from year", null );
-        return res;
+        res.moveToFirst();
+        while(res.isAfterLast() == false){
+            array_list.add(res.getString(res.getColumnIndex("schoolName")));
+            array_list.add(res.getString(res.getColumnIndex("yearOfSchool")));
+            res.moveToNext();
+        }
+        return array_list;
     }
     public Integer deleteCourse (String courseName) {
         SQLiteDatabase db = this.getWritableDatabase();

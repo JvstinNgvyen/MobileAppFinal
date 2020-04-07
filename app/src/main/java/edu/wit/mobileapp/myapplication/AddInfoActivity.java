@@ -133,11 +133,6 @@ public class AddInfoActivity extends AppCompatActivity implements View.OnClickLi
 
             }
 
-
-            Integer query = dbHelper.getYear().getColumnCount();
-            String stringQuery = query.toString();
-            Log.d(TAG, stringQuery);
-
             ChipGroup chipGroupClass = findViewById(R.id.class_group);
 
             ArrayList<String> chipClassList = new ArrayList<String>();
