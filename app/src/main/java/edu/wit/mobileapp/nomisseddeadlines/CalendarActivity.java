@@ -1,4 +1,4 @@
-package edu.wit.mobileapp.myapplication;
+package edu.wit.mobileapp.nomisseddeadlines;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

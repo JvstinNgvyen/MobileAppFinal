@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="edu.wit.mobileapp.myapplication">
+    package="edu.wit.mobileapp.nomisseddeadlines">
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -10,17 +10,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DataActivity"></activity>
-        <activity android:name=".CalendarActivity" />
-        <activity android:name=".LaunchActivity">
+        <activity android:name="edu.wit.mobileapp.nomisseddeadlines.DataActivity"></activity>
+        <activity android:name="edu.wit.mobileapp.nomisseddeadlines.CalendarActivity" />
+        <activity android:name="edu.wit.mobileapp.nomisseddeadlines.LaunchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddInfoActivity" />
-        <activity android:name=".AddAssignmentActivity" />
-        <activity android:name=".CardViewAssignmentActivity" />
+        <activity android:name="edu.wit.mobileapp.nomisseddeadlines.AddInfoActivity" />
+        <activity android:name="edu.wit.mobileapp.nomisseddeadlines.AddAssignmentActivity" />
+        <activity android:name="edu.wit.mobileapp.nomisseddeadlines.CardViewAssignmentActivity" />
     </application>
 </manifest>

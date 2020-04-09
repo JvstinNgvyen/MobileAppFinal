@@ -1,4 +1,4 @@
-package edu.wit.mobileapp.myapplication;
+package edu.wit.mobileapp.nomisseddeadlines;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,18 +12,7 @@ import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.w3c.dom.Text;
-
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class DataActivity extends AppCompatActivity {
     private static final String DATABASE_NAME = "/database";

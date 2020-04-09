@@ -1,7 +1,6 @@
-package edu.wit.mobileapp.myapplication;
+package edu.wit.mobileapp.nomisseddeadlines;
 
 import android.content.Context;
-import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

@@ -1,4 +1,4 @@
-package edu.wit.mobileapp.myapplication;
+package edu.wit.mobileapp.nomisseddeadlines;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,9 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Date;
 
-import static android.content.Context.MODE_PRIVATE;
 import static android.database.sqlite.SQLiteDatabase.openOrCreateDatabase;
 
 public class SQLlite extends SQLiteOpenHelper {
